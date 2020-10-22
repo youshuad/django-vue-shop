@@ -37,16 +37,27 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
+    'coreschema',
+    'django.conf',
+    'DjangoUeditor',
+    'users',
+    'trade',
+    'goods',
+    'user_operation',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users.apps.UsersConfig',
+    'django_filters',
+    'rest_framework.authtoken',
+    # 'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -137,3 +148,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR,"media")
+MEDIA_URL = "/media/"
+
+REST_FRAMEWORK = {
+    #分页
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    #每页显示的个数
+    'PAGE_SIZE': 10,
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    )
+}
+
+CORS_ORIGIN_WHITELIST =(
+   # ' 域名',  # 这里设置域名
+   'http://127.0.0.1:8080'
+)
+CORS_ORIGIN_ALLOW_ALL = True
+

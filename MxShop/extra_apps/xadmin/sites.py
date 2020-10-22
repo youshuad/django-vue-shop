@@ -345,11 +345,13 @@ class AdminSite(object):
         This takes into account the USE_I18N setting. If it's set to False, the
         generated JavaScript will be leaner and faster.
         """
-        if settings.USE_I18N:
-            from django.views.i18n import javascript_catalog
-        else:
-            from django.views.i18n import null_javascript_catalog as javascript_catalog
-        return javascript_catalog(request, packages=['django.conf', 'xadmin'])
+        # if settings.USE_I18N:
+        #     from django.views.i18n import javascript_catalog
+        # else:
+        #     from django.views.i18n import null_javascript_catalog as javascript_catalog
+        # return javascript_catalog(request, packages=['django.conf', 'xadmin'])
+        from django.views.i18n import JavaScriptCatalog
+        return JavaScriptCatalog().get(request=request, **{'packages': 'django.conf+xadmin'})
 
 # This global object represents the default admin site, for the common case.
 # You can instantiate AdminSite in your own code to create a custom admin site.
